@@ -1,0 +1,6 @@
+language: csharp
+solution: htsl.sln
+before_script:
+  - nuget restore htsl.sln
+script:
+  - xbuild /p:Configuration=Release htsl.sln
