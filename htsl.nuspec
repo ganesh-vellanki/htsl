@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>htsl</id>
+    <version>$version$</version>
+    <title>HTSL Library</title>
+    <authors>Ganesh Vellanki</authors>
+    <owners>Ganesh Vellanki</owners>
+    <licenseUrl>https://github.com/ganeshvelanki/htsl/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A C# library for converting HTML To Excel using Html Agility pack and SpreadsheetLight</description>
+    <tags>excel html htmltoexcel table</tags>
+  </metadata>
+  <files>
+	<file src="htsl\bin\$configuration$\htslCore.dll" target="lib\net45\" />
+  </files>
+</package>
