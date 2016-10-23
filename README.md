@@ -22,3 +22,7 @@ Right now it is in Beta, very much new, it should be ready soon in couple of mon
 ### Documentation 
 
 Building API is in progress, Docs & Samples will be available soon.
+
+### Nuget package
+
+https://www.nuget.org/packages/htslCore/
