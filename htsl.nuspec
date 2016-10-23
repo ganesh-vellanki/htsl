@@ -12,6 +12,6 @@
     <tags>excel html htmltoexcel table</tags>
   </metadata>
   <files>
-	<file src="htsl\bin\$configuration$\htslCore.dll" target="lib\net45\" />
+	<file src="htslCore\bin\$configuration$\htslCore.dll" target="lib\net45\" />
   </files>
 </package>
