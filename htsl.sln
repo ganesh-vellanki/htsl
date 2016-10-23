@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "htslMain", "htslMain\htslMa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FA7CBD2C-3DA5-4E05-8886-C3AF35FBF574}"
 	ProjectSection(SolutionItems) = preProject
+		Conversion_Concept.txt = Conversion_Concept.txt
 		LICENSE = LICENSE
 		README.md = README.md
 		travis.yml = travis.yml
