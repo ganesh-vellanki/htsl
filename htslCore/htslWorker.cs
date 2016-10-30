@@ -7,6 +7,7 @@ using htslCore.Model;
 using System.Text.RegularExpressions;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.IO;
+using Omu.ValueInjecter;
 
 namespace htslCore.Worker
 {
@@ -166,8 +167,8 @@ namespace htslCore.Worker
                         break;
 
                     case "border":
-                        
-
+                        this.SetSLBorder(stylePair[1], slStyle);
+                        break;
                     default:
                         break;
                 }
