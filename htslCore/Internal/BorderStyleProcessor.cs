@@ -12,7 +12,7 @@ namespace htslCore.Internal
     /// Border Style Processor
     /// </summary>
     /// <seealso cref="htslCore.Internal.IStyleProcessor{htslCore.Model.htslCellStyle}" />
-    class BorderStyleProcessor : IStyleProcessor<htslCellStyle>
+    internal class BorderStyleProcessor : IStyleProcessor<htslCellStyle>
     {
 
         /// <summary>

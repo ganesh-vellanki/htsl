@@ -12,7 +12,7 @@ namespace htslCore.Internal
     /// Background color style processor
     /// </summary>
     /// <seealso cref="htslCore.Internal.IStyleProcessor{htslCore.Model.htslCellStyle}" />
-    class BackgroundColorStyleProcessor : IStyleProcessor<htslCellStyle>
+    internal class BackgroundColorStyleProcessor : IStyleProcessor<htslCellStyle>
     {
         /// <summary>
         /// Gets the style.
