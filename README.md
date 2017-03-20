@@ -10,14 +10,13 @@ HTML to Excel a C# library
 ### Why this library? Purpose
 
 Well, sometimes to create a good excel output/report, a developer should write a huge chunk of code to set each cell value, color..etc. 
-that's not even maintainable except the person who wrote it. 
+that's not maintainable even for the person who wrote it. 
 
-This library comes into play, by using HTML tables each table row will be a excel row, and each td will be an excel cell.
-
+This library comes into play, by using HTML tables each table row will be a excel row, and each td will be an excel cell. And one can add styles to rows and cells too.
 
 ### Status of Project
 
-Right now it is in Beta, very much new, it should be ready soon in couple of months
+Right now it is in Beta, very much new. Any contributions to this project are welcome.
 
 ### Documentation 
 
