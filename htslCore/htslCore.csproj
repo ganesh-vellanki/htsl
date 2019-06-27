@@ -56,9 +56,11 @@
     <Compile Include="Constants.cs" />
     <Compile Include="HtslRun.cs" />
     <Compile Include="HtslWorker.cs" />
-    <Compile Include="Internal\BackgroundColorStyleProcessor.cs" />
-    <Compile Include="Internal\BorderStyleProcessor.cs" />
-    <Compile Include="Internal\IStyleProcessor.cs" />
+    <Compile Include="Internal\Converters\HtmlConverterHelper.cs" />
+    <Compile Include="Internal\Converters\XLConverterHelper.cs" />
+    <Compile Include="Internal\Processors\BackgroundColorStyleProcessor.cs" />
+    <Compile Include="Internal\Processors\BorderStyleProcessor.cs" />
+    <Compile Include="Internal\Processors\IStyleProcessor.cs" />
     <Compile Include="HtslCellStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,6 +88,7 @@
     <Content Include="bin\Release\SpreadsheetLight.dll" />
     <Content Include="bin\Release\SpreadsheetLight.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

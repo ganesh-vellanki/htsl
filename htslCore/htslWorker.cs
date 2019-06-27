@@ -7,6 +7,7 @@ using htslCore.Model;
 using System.Text.RegularExpressions;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.IO;
+using htslCore.Internal.Converters;
 
 namespace htslCore.Worker
 {
@@ -22,6 +23,7 @@ namespace htslCore.Worker
         {
             this.tableCellStyle = new Dictionary<string, Dictionary<string, HtslCellStyle>>();
             this.tableRowStyle = new Dictionary<string, Dictionary<int, HtslCellStyle>>();
+            this.HtmlConverterHelper = new HtmlConverterHelper();
         }
 
         /// <summary>
@@ -39,19 +41,27 @@ namespace htslCore.Worker
         /// The table cell style.
         /// </value>
         private Dictionary<string, Dictionary<string, HtslCellStyle>> tableCellStyle { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the HTML converter helper.
+        /// </summary>
+        /// <value>
+        /// The HTML converter helper.
+        /// </value>
+        private HtmlConverterHelper HtmlConverterHelper { get; set; }
+
         /// <summary>
         /// Converts the HTML to EXCEL.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>converted document as byte array</returns>
         public byte[] ConvertHTMLToXL(string htmlStr)
         {
-            var html = new HtmlDocument() { OptionUseIdAttribute = true };
+            //Load html document
+            var htmlDocument = this.HtmlConverterHelper.GetNewHtmlDocument(htmlStr);
             int rowIndex = 1, colIndex = 1;
             MemoryStream MemoryStream = new MemoryStream();
 
-            html.LoadHtml(htmlStr);
-            var tables = html.DocumentNode.Descendants("table").ToList();
+            var tables = htmlDocument.DocumentNode.Descendants("table").ToList();
 
             tables.ForEach(table =>
             {
