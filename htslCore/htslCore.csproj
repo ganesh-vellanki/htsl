@@ -54,8 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="HtslRun.cs" />
-    <Compile Include="HtslWorker.cs" />
+    <Compile Include="Main\HtslRun.cs" />
+    <Compile Include="Main\HtslWorker.cs" />
     <Compile Include="Internal\Converters\HtmlConverterHelper.cs" />
     <Compile Include="Internal\Converters\XLConverterHelper.cs" />
     <Compile Include="Internal\Processors\BackgroundColorStyleProcessor.cs" />
