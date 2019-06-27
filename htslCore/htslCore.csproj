@@ -54,12 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="htslRun.cs" />
-    <Compile Include="htslWorker.cs" />
+    <Compile Include="HtslRun.cs" />
+    <Compile Include="HtslWorker.cs" />
     <Compile Include="Internal\BackgroundColorStyleProcessor.cs" />
     <Compile Include="Internal\BorderStyleProcessor.cs" />
     <Compile Include="Internal\IStyleProcessor.cs" />
-    <Compile Include="Model.cs" />
+    <Compile Include="HtslCellStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

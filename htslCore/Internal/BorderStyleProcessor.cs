@@ -11,8 +11,8 @@ namespace htslCore.Internal
     /// <summary>
     /// Border Style Processor
     /// </summary>
-    /// <seealso cref="htslCore.Internal.IStyleProcessor{htslCore.Model.htslCellStyle}" />
-    internal class BorderStyleProcessor : IStyleProcessor<htslCellStyle>
+    /// <seealso cref="htslCore.Internal.IStyleProcessor{htslCore.Model.HtslCellStyle}" />
+    internal class BorderStyleProcessor : IStyleProcessor<HtslCellStyle>
     {
 
         /// <summary>
@@ -22,9 +22,9 @@ namespace htslCore.Internal
         /// <returns>
         /// a processed style
         /// </returns>
-        public htslCellStyle GetStyle(string styleAttr)
+        public HtslCellStyle GetStyle(string styleAttr)
         {
-            htslCellStyle style = new htslCellStyle();
+            HtslCellStyle style = new HtslCellStyle();
 
             var attrValues = styleAttr.Split(' ');
 

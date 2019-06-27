@@ -13,15 +13,15 @@ namespace htslCore.Worker
     /// <summary>
     /// Internal HTML To EXCEL Worker class
     /// </summary>
-    internal class htslWorker
+    internal class HtslWorker
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="htslWorker"/> class.
+        /// Initializes a new instance of the <see cref="HtslWorker"/> class.
         /// </summary>
-        public htslWorker()
+        public HtslWorker()
         {
-            this.tableCellStyle = new Dictionary<string, Dictionary<string, htslCellStyle>>();
-            this.tableRowStyle = new Dictionary<string, Dictionary<int, htslCellStyle>>();
+            this.tableCellStyle = new Dictionary<string, Dictionary<string, HtslCellStyle>>();
+            this.tableRowStyle = new Dictionary<string, Dictionary<int, HtslCellStyle>>();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace htslCore.Worker
         /// <value>
         /// The table row style.
         /// </value>
-        private Dictionary<string, Dictionary<int, htslCellStyle>> tableRowStyle { get; set; }
+        private Dictionary<string, Dictionary<int, HtslCellStyle>> tableRowStyle { get; set; }
 
         /// <summary>
         /// Gets or sets the table cell style.
@@ -38,7 +38,7 @@ namespace htslCore.Worker
         /// <value>
         /// The table cell style.
         /// </value>
-        private Dictionary<string, Dictionary<string, htslCellStyle>> tableCellStyle { get; set; }
+        private Dictionary<string, Dictionary<string, HtslCellStyle>> tableCellStyle { get; set; }
         
         /// <summary>
         /// Converts the HTML to EXCEL.
@@ -73,7 +73,7 @@ namespace htslCore.Worker
                     colIndex = 1;
                     foreach(var cell in cells)
                     {
-                        htslCellStyle style;
+                        HtslCellStyle style;
                         var styleExists = cellStyles.TryGetValue(string.Format(htslConstants.RowColPlaceHolder, rowIndex, colIndex), out style);
                         document.SetCellValue(rowIndex, colIndex, cell.InnerText);
 
@@ -108,8 +108,8 @@ namespace htslCore.Worker
 
             var rows = htmlTableNode.Descendants("tr").ToList();
             int rowIndex = 1;
-            var _rowStyles = new Dictionary<int, htslCellStyle>();
-            var _cellStyles = new Dictionary<string, htslCellStyle>();
+            var _rowStyles = new Dictionary<int, HtslCellStyle>();
+            var _cellStyles = new Dictionary<string, HtslCellStyle>();
             rows.ForEach(row =>
             {
                 var rowStyle = row.GetAttributeValue("style", null);
@@ -146,10 +146,10 @@ namespace htslCore.Worker
         /// Processes the style properties.
         /// </summary>
         /// <param name="styleStr">The style.</param>
-        private htslCellStyle ProcessStyleProperties(string styleStr)
+        private HtslCellStyle ProcessStyleProperties(string styleStr)
         {
             string[] cssProperties = styleStr.Split(';');
-            htslCellStyle slStyle = new htslCellStyle();
+            HtslCellStyle slStyle = new HtslCellStyle();
 
             foreach (var prop in cssProperties)
             {
@@ -181,7 +181,7 @@ namespace htslCore.Worker
         /// </summary>
         /// <param name="borderStr">The border string.</param>
         /// <param name="slStyle">The Cell style.</param>
-        private void SetSLBorder(string borderStr, htslCellStyle slStyle)
+        private void SetSLBorder(string borderStr, HtslCellStyle slStyle)
         {
             var borderSplit = borderStr.Split(' ');
             if(borderSplit.Length == 3)

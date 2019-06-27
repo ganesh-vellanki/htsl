@@ -11,8 +11,8 @@ namespace htslCore.Internal
     /// <summary>
     /// Background color style processor
     /// </summary>
-    /// <seealso cref="htslCore.Internal.IStyleProcessor{htslCore.Model.htslCellStyle}" />
-    internal class BackgroundColorStyleProcessor : IStyleProcessor<htslCellStyle>
+    /// <seealso cref="htslCore.Internal.IStyleProcessor{htslCore.Model.HtslCellStyle}" />
+    internal class BackgroundColorStyleProcessor : IStyleProcessor<HtslCellStyle>
     {
         /// <summary>
         /// Gets the style.
@@ -21,9 +21,9 @@ namespace htslCore.Internal
         /// <returns>
         /// a processed style
         /// </returns>
-        public htslCellStyle GetStyle(string backgroundColor)
+        public HtslCellStyle GetStyle(string backgroundColor)
         {
-            htslCellStyle style = new htslCellStyle();
+            HtslCellStyle style = new HtslCellStyle();
             if(Regex.Match(backgroundColor, @"^#(?:[0-9a-fA-F]{3}){1,2}$").Success)
             {
                 style.Fill.SetPatternBackgroundColor((System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(backgroundColor));

@@ -11,7 +11,7 @@ namespace htslCore.Model
     /// HTSL Cell Style
     /// </summary>
     /// <seealso cref="SpreadsheetLight.SLStyle" />
-    internal class htslCellStyle: SLStyle
+    internal class HtslCellStyle: SLStyle
     {
         /// <summary>
         /// Gets or sets the width.
