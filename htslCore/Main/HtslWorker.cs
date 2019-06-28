@@ -67,7 +67,7 @@ namespace htslCore.Worker
         /// <summary>
         /// Converts the HTML to EXCEL.
         /// </summary>
-        /// <returns>converted document as byte array</returns>
+        /// <returns>Converted document as byte array.</returns>
         public byte[] ConvertHTMLToXL(string htmlStr)
         {
             //Load html document
@@ -98,7 +98,7 @@ namespace htslCore.Worker
                     foreach(var cell in cells)
                     {
                         HtslCellStyle style;
-                        var styleExists = cellStyles.TryGetValue(string.Format(htslConstants.RowColPlaceHolder, rowIndex, colIndex), out style);
+                        var styleExists = cellStyles.TryGetValue(string.Format(HtslConstants.RowColPlaceHolder, rowIndex, colIndex), out style);
                         document.SetCellValue(rowIndex, colIndex, cell.InnerText);
 
                         if (styleExists)
@@ -153,7 +153,7 @@ namespace htslCore.Worker
 
                     if (cellStyle != null)
                     {
-                        _cellStyles.Add(string.Format(htslConstants.RowColPlaceHolder, rowIndex, cellIndex), this.ProcessStyleProperties(cellStyle));
+                        _cellStyles.Add(string.Format(HtslConstants.RowColPlaceHolder, rowIndex, cellIndex), this.ProcessStyleProperties(cellStyle));
                     }
 
                     ++cellIndex;
@@ -182,11 +182,11 @@ namespace htslCore.Worker
                 switch (stylePair[0].Trim())
                 {
                     case "width":
-                        slStyle.Width = Convert.ToDouble(Regex.Replace(stylePair[1], htslConstants.NumberOnlyRegex, ""));
+                        slStyle.Width = Convert.ToDouble(Regex.Replace(stylePair[1], HtslConstants.NumberOnlyRegex, ""));
                         break;
 
                     case "height":
-                        slStyle.Height = Convert.ToDouble(Regex.Replace(stylePair[1], htslConstants.NumberOnlyRegex, ""));
+                        slStyle.Height = Convert.ToDouble(Regex.Replace(stylePair[1], HtslConstants.NumberOnlyRegex, ""));
                         break;
 
                     case "border":

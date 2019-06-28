@@ -9,7 +9,7 @@ namespace htslCore
     /// <summary>
     /// Constant Keys
     /// </summary>
-    internal static class htslConstants
+    internal static class HtslConstants
     {
         /// <summary>
         /// The row col place holder

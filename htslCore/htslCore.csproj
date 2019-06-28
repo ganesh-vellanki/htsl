@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Internal\Processors\RawStyleSegregator.cs" />
+    <Compile Include="Main\HtslConverter.cs" />
     <Compile Include="Main\HtslRun.cs" />
     <Compile Include="Main\HtslWorker.cs" />
     <Compile Include="Internal\Converters\HtmlConverterHelper.cs" />
