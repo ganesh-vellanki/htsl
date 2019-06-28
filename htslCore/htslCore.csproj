@@ -69,25 +69,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\DocumentFormat.OpenXml.dll" />
-    <Content Include="bin\Debug\DocumentFormat.OpenXml.xml" />
-    <Content Include="bin\Debug\HtmlAgilityPack.dll" />
-    <Content Include="bin\Debug\HtmlAgilityPack.pdb" />
-    <Content Include="bin\Debug\HtmlAgilityPack.xml" />
-    <Content Include="bin\Debug\htslCore.dll" />
-    <Content Include="bin\Debug\htslCore.pdb" />
-    <Content Include="bin\Debug\SpreadsheetLight.dll" />
-    <Content Include="bin\Debug\SpreadsheetLight.xml" />
-    <Content Include="bin\Release\DocumentFormat.OpenXml.dll" />
-    <Content Include="bin\Release\HtmlAgilityPack.dll" />
-    <Content Include="bin\Release\HtmlAgilityPack.pdb" />
-    <Content Include="bin\Release\HtmlAgilityPack.xml" />
-    <Content Include="bin\Release\htslCore.dll" />
-    <Content Include="bin\Release\htslCore.pdb" />
-    <Content Include="bin\Release\SpreadsheetLight.dll" />
-    <Content Include="bin\Release\SpreadsheetLight.xml" />
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
