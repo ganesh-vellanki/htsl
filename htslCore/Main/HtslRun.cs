@@ -37,7 +37,7 @@ namespace htslCore.Run
         /// <returns>true if html string is valid</returns>
         public bool AssertHTMLSource(string htmlStr)
         {
-            return false;
+            return this._worker.IsHtmlValid(htmlStr);
         }
     }
 }

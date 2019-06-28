@@ -51,6 +51,20 @@ namespace htslCore.Worker
         private HtmlConverterHelper HtmlConverterHelper { get; set; }
 
         /// <summary>
+        /// Determines whether [is HTML valid] [the specified HTML string].
+        /// </summary>
+        /// <param name="htmlStr">The HTML string.</param>
+        /// <returns>
+        ///   <c>true</c> if [is HTML valid] [the specified HTML string]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsHtmlValid(string htmlStr)
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml(htmlStr);
+            return doc.ParseErrors.Count() > 0;
+        }
+
+        /// <summary>
         /// Converts the HTML to EXCEL.
         /// </summary>
         /// <returns>converted document as byte array</returns>
