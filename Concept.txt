@@ -1,0 +1,10 @@
+Styles we want to process.
+1) Borders.
+2) Background color.
+3) Font-weight.
+4) Font-color.
+5) Height of tr (row height of all tds, single cell row height not supported for now).
+6) Width of entire column (delayed).
+7) Font-family.
+8) text-align.
+9) text-style.
