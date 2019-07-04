@@ -102,12 +102,41 @@ namespace htslCore.Internal.Processors
             string[] cssProperties = styleStr.Split(';');
             HtslCellStyle cellStyle = new HtslCellStyle();
 
+            var styleLookup = this.ConvertStylesAsDictionary(styleStr);
+
             //Process the styles with styleAffixer.
             this.StyleAffixer
-                .BindStyle(new BackgroundColorStyleProcessor(cellStyle), styleStr)
-                .BindStyle(new BorderStyleProcessor(cellStyle), styleStr);
+                .BindStyle(new BackgroundColorStyleProcessor(cellStyle), styleLookup.ContainsKey(HtslConstants.CssBackgroundColor) ? styleLookup[HtslConstants.CssBackgroundColor]: null)
+                .BindStyle(new BorderStyleProcessor(cellStyle), styleLookup.ContainsKey(HtslConstants.CssBorder) ? styleLookup[HtslConstants.CssBorder] : null);
 
             return cellStyle;
+        }
+
+        /// <summary>
+        /// Converts the styles as dictionary.
+        /// </summary>
+        /// <param name="styleString">The style string.</param>
+        /// <returns>Dictionary form of styles.</returns>
+        private IDictionary<string, string> ConvertStylesAsDictionary(string styleString)
+        {
+            IDictionary<string, string> styleLookup = new Dictionary<string, string>();
+            var kvPairStrings = styleString.Split(';');
+
+            for (int i = 0; i < kvPairStrings.Length; i++)
+            {
+                var splitKeyValuePair = kvPairStrings[i].Trim().Split(':');
+                var key = splitKeyValuePair[0].Trim();
+                if (styleLookup.ContainsKey(key))
+                {
+                    styleLookup[key] = splitKeyValuePair[1].Trim();
+                }
+                else
+                {
+                    styleLookup.Add(key, splitKeyValuePair[1].Trim());
+                }
+            }
+
+            return styleLookup;
         }
     }
 }

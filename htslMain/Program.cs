@@ -21,9 +21,9 @@ namespace htslMain
         /// <param name="args">The arguments.</param>
         static void Main(string[] args)
         {
-            var runner = new htslCore.Run.HtslRun();
-            var isValidHtml = runner.AssertHTMLSource("<html><head></html>");
-            var stream = runner.ConvertHtmlToXL(HtmlTemplateStore.sampleTemplate1.Replace("\r\n", ""));
+            var runner = new htslCore.Main.HtslConverter();
+            //var isValidHtml = runner.AssertHTMLSource("<html><head></html>");
+            var stream = runner.ConvertToExcel(HtmlTemplateStore.sampleTemplate1.Replace("\r\n", ""));
             var memoryStream = new MemoryStream(stream);
             var fileStream = new FileStream(Directory.GetCurrentDirectory() + "\\sample.xlsx", FileMode.Create, FileAccess.Write);
 
