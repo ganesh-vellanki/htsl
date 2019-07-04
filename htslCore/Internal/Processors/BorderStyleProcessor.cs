@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
+using htslCore.Internal.Processors;
 using htslCore.Model;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,16 @@ namespace htslCore.Internal
     /// Border Style Processor
     /// </summary>
     /// <seealso cref="htslCore.Internal.IStyleProcessor{htslCore.Model.HtslCellStyle}" />
-    internal class BorderStyleProcessor : IStyleProcessor<HtslCellStyle>
+    internal class BorderStyleProcessor : StyleProcessor, IStyleProcessor<HtslCellStyle>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BorderStyleProcessor"/> class.
+        /// </summary>
+        /// <param name="cellStyle"></param>
+        public BorderStyleProcessor(HtslCellStyle cellStyle) 
+            : base(cellStyle)
+        {
+        }
 
         /// <summary>
         /// Gets the style.
@@ -24,17 +33,15 @@ namespace htslCore.Internal
         /// </returns>
         public HtslCellStyle GetStyle(string styleAttr)
         {
-            HtslCellStyle style = new HtslCellStyle();
-
             var attrValues = styleAttr.Split(' ');
 
             if(attrValues.Length == 3)
             {
-                style.Border.SetHorizontalBorder(BorderStyleValues.Thin, (System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(attrValues[2]));
-                style.Border.SetVerticalBorder(BorderStyleValues.Thin, (System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(attrValues[2]));
+                base.CellStyle.Border.SetHorizontalBorder(BorderStyleValues.Thin, (System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(attrValues[2]));
+                base.CellStyle.Border.SetVerticalBorder(BorderStyleValues.Thin, (System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(attrValues[2]));
             }
 
-            return style;
+            return base.CellStyle;
         }
     }
 }

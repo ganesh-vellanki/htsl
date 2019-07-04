@@ -8,3 +8,4 @@ Styles we want to process.
 7) Font-family.
 8) text-align.
 9) text-style.
+10) cell-span.

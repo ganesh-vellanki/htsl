@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Internal\Processors\RawStyleSegregator.cs" />
+    <Compile Include="Internal\Processors\StyleProcessor.cs" />
     <Compile Include="Main\HtslConverter.cs" />
     <Compile Include="Main\HtslRun.cs" />
     <Compile Include="Main\HtslWorker.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Internal\Processors\BorderStyleProcessor.cs" />
     <Compile Include="Internal\Processors\IStyleProcessor.cs" />
     <Compile Include="HtslCellStyle.cs" />
+    <Compile Include="Main\StyleAffixer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

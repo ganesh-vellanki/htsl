@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using htslCore.Main;
 using htslCore.Model;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,22 @@ namespace htslCore.Internal.Processors
         /// The cell style.
         /// </value>
         public Dictionary<string, HtslCellStyle> ColStyle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the style affixer.
+        /// </summary>
+        /// <value>
+        /// The style affixer.
+        /// </value>
+        public StyleAffixer StyleAffixer { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RawStyleSegregator"/> class.
+        /// </summary>
+        public RawStyleSegregator()
+        {
+            this.StyleAffixer = new StyleAffixer();
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RawStyleSegregator"/> class.
@@ -80,8 +97,14 @@ namespace htslCore.Internal.Processors
         private HtslCellStyle ProcessStyleProperties(string styleStr)
         {
             string[] cssProperties = styleStr.Split(';');
-            HtslCellStyle slStyle = new HtslCellStyle();
-            return slStyle;
+            HtslCellStyle cellStyle = new HtslCellStyle();
+
+            //Process the styles with styleAffixer.
+            this.StyleAffixer
+                .BindStyle(new BackgroundColorStyleProcessor(cellStyle), styleStr)
+                .BindStyle(new BorderStyleProcessor(cellStyle), styleStr);
+
+            return cellStyle;
         }
     }
 }

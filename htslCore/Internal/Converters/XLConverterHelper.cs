@@ -1,5 +1,7 @@
 ﻿using HtmlAgilityPack;
 using htslCore.Internal.Processors;
+using htslCore.Main;
+using htslCore.Model;
 using SpreadsheetLight;
 using System;
 using System.Collections.Generic;
@@ -73,6 +75,15 @@ namespace htslCore.Internal.Converters
         public void SetCellStyles(RawStyleSegregator rawStyleSegregator, string worksheetName)
         {
             this.SetCurrentWorkSheet(worksheetName);
+            var workSheet = this.SLDocument.GetWorksheetStatistics();
+            for (int row = 0; row < workSheet.EndRowIndex; row++)
+            {
+                this.SLDocument.SetRowStyle(row, rawStyleSegregator.RowStyle[row]);
+                for (int col = 0; col < workSheet.EndColumnIndex; col++)
+                {
+                    this.SLDocument.SetCellStyle(row, col, rawStyleSegregator.ColStyle[string.Format(HtslConstants.RowColPlaceHolder, row, col)]);
+                }
+            }
         }
 
         /// <summary>

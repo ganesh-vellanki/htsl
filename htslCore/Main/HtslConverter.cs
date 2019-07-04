@@ -70,12 +70,19 @@ namespace htslCore.Main
                 {
                     styleSegregators.Add(new RawStyleSegregator(tableNodes[i]));
                 }
+
             }
-            
+
             //generate content & set pre-processed styles to excel document.
             for(int i = 0; i < tableNodes.Count; i++)
             {
                 XLConverterHelper.GenerateXLContent(tableNodes[i], "worksheet" + tableNodes[0].Name + i);
+            }
+
+            //set cell styling
+            for (int i = 0; i < tableNodes.Count; i++)
+            {
+                XLConverterHelper.SetCellStyles(styleSegregators[i], "worksheet" + tableNodes[0].Name + i);
             }
 
             return xlResult;

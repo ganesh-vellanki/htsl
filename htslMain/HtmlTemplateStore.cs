@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace htslMain
 {
     /// <summary>
-    /// Writing inline template to avoid file read/write complexity
+    /// Writing inline template to avoid file read/write complexity.
     /// </summary>
     static class HtmlTemplateStore
     {
