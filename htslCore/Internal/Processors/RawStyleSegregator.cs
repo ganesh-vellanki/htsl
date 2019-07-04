@@ -44,12 +44,15 @@ namespace htslCore.Internal.Processors
         public RawStyleSegregator()
         {
             this.StyleAffixer = new StyleAffixer();
+            this.RowStyle = new Dictionary<int, HtslCellStyle>();
+            this.ColStyle = new Dictionary<string, HtslCellStyle>();
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RawStyleSegregator"/> class.
         /// </summary>
         public RawStyleSegregator(HtmlNode htmlNode)
+            :this()
         {
             this.ProcessRowStyles(htmlNode);
         }
