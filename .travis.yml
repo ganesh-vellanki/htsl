@@ -4,4 +4,4 @@ before_script:
   - nuget restore htsl.sln
 script:
   - msbuild /p:Configuration=Release htsl.sln
-  #- mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe ./htslTest/bin/Release/htslTest.dll
+  - mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe ./htslTest/bin/Release/htslTest.dll
