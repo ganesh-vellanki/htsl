@@ -33,16 +33,20 @@ namespace htslCore.Internal
         /// </returns>
         public HtslCellStyle GetStyle(string backgroundColor)
         {
-            if(Regex.Match(backgroundColor, @"^#(?:[0-9a-fA-F]{3}){1,2}$").Success)
+            if(!string.IsNullOrEmpty(backgroundColor))
             {
-                base.CellStyle.Fill.SetPatternBackgroundColor((System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(backgroundColor));
-            }
-            else if(Regex.Match(backgroundColor, @"/[Rr][Gg][Bb][Aa][\(](((([\d]{1,3}|[\d\.]{1,3})[\,]{0,1})[\s]*){4})[\)]/gm").Success)
-            {
-                backgroundColor.Remove(0, 4);
-                backgroundColor.Replace("(", string.Empty);
-                backgroundColor.Replace(")", string.Empty);
-                base.CellStyle.Fill.SetPatternBackgroundColor(System.Drawing.Color.FromArgb(backgroundColor[3], backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+                if (Regex.Match(backgroundColor, @"^#(?:[0-9a-fA-F]{3}){1,2}$").Success)
+                {
+                    base.CellStyle.Fill.SetPatternBackgroundColor((System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(backgroundColor));
+                }
+                else if (Regex.Match(backgroundColor, @"/[Rr][Gg][Bb][Aa][\(](((([\d]{1,3}|[\d\.]{1,3})[\,]{0,1})[\s]*){4})[\)]/gm").Success)
+                {
+                    backgroundColor.Remove(0, 4);
+                    backgroundColor.Replace("(", string.Empty);
+                    backgroundColor.Replace(")", string.Empty);
+                    base.CellStyle.Fill.SetPatternBackgroundColor(System.Drawing.Color.FromArgb(backgroundColor[3], backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+                }
+
             }
 
             return base.CellStyle;

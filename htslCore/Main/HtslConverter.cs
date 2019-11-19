@@ -50,7 +50,6 @@ namespace htslCore.Main
         /// </returns>
         public byte[] ConvertToExcel(string htmlString, bool processTableStyles = true, string fileName = "Workspace")
         {
-            byte[] xlResult = null;
             fileName += DateTime.Now.ToString();
 
             //parse html document into object with html-agility.
@@ -70,7 +69,6 @@ namespace htslCore.Main
                 {
                     styleSegregators.Add(new RawStyleSegregator(tableNodes[i]));
                 }
-
             }
 
             //generate content & set pre-processed styles to excel document.
@@ -85,7 +83,7 @@ namespace htslCore.Main
                 XLConverterHelper.SetCellStyles(styleSegregators[i], "worksheet" + tableNodes[0].Name + i);
             }
 
-            return xlResult;
+            return XLConverterHelper.GetDocumentInStreamAndClose();
         }
     }
 }

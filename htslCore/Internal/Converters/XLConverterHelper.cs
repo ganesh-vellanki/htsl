@@ -62,7 +62,7 @@ namespace htslCore.Internal.Converters
 
                 for (int colIndex = 0; colIndex < cols.Count; colIndex++)
                 {
-                    this.SLDocument.SetCellValue(rowIndex, colIndex, cols[colIndex].InnerText);
+                    this.SLDocument.SetCellValue(rowIndex + 1, colIndex + 1, cols[colIndex].InnerText);
                 }
             }
         }
@@ -78,10 +78,10 @@ namespace htslCore.Internal.Converters
             var workSheet = this.SLDocument.GetWorksheetStatistics();
             for (int row = 0; row < workSheet.EndRowIndex; row++)
             {
-                this.SLDocument.SetRowStyle(row, rawStyleSegregator.RowStyle[row]);
+                this.SLDocument.SetRowStyle(row + 1, rawStyleSegregator.RowStyle[row]);
                 for (int col = 0; col < workSheet.EndColumnIndex; col++)
                 {
-                    this.SLDocument.SetCellStyle(row, col, rawStyleSegregator.ColStyle[string.Format(HtslConstants.RowColPlaceHolder, row, col)]);
+                    //this.SLDocument.SetCellStyle(row + 1, col, rawStyleSegregator.ColStyle[string.Format(HtslConstants.RowColPlaceHolder, row, col)]);
                 }
             }
         }

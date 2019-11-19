@@ -33,12 +33,15 @@ namespace htslCore.Internal
         /// </returns>
         public HtslCellStyle GetStyle(string styleAttr)
         {
-            var attrValues = styleAttr.Split(' ');
-
-            if(attrValues.Length == 3)
+            if(!string.IsNullOrEmpty(styleAttr))
             {
-                base.CellStyle.Border.SetHorizontalBorder(BorderStyleValues.Thin, (System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(attrValues[2]));
-                base.CellStyle.Border.SetVerticalBorder(BorderStyleValues.Thin, (System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(attrValues[2]));
+                var attrValues = styleAttr.Split(' ');
+
+                if (attrValues.Length == 3)
+                {
+                    base.CellStyle.Border.SetHorizontalBorder(BorderStyleValues.Thin, (System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(attrValues[2]));
+                    base.CellStyle.Border.SetVerticalBorder(BorderStyleValues.Thin, (System.Drawing.Color)System.Drawing.ColorTranslator.FromHtml(attrValues[2]));
+                }
             }
 
             return base.CellStyle;
