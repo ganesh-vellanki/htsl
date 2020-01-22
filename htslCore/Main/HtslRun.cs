@@ -10,7 +10,7 @@ namespace htslCore.Run
     /// <summary>
     /// Core HTML to EXCEL Conversion API
     /// </summary>
-    public class htslRun
+    public class HtslRun
     {
         /// <summary>
         /// Gets the worker.
@@ -18,7 +18,7 @@ namespace htslCore.Run
         /// <value>
         /// The worker.
         /// </value>
-        private htslWorker _worker { get { return new htslWorker(); } }
+        private HtslWorker _worker { get { return new HtslWorker(); } }
 
         /// <summary>
         /// Converts the HTML to xl.
@@ -37,7 +37,7 @@ namespace htslCore.Run
         /// <returns>true if html string is valid</returns>
         public bool AssertHTMLSource(string htmlStr)
         {
-            return false;
+            return this._worker.IsHtmlValid(htmlStr);
         }
     }
 }

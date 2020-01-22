@@ -7,21 +7,23 @@ using htslCore.Model;
 using System.Text.RegularExpressions;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.IO;
+using htslCore.Internal.Converters;
 
 namespace htslCore.Worker
 {
     /// <summary>
     /// Internal HTML To EXCEL Worker class
     /// </summary>
-    internal class htslWorker
+    internal class HtslWorker
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="htslWorker"/> class.
+        /// Initializes a new instance of the <see cref="HtslWorker"/> class.
         /// </summary>
-        public htslWorker()
+        public HtslWorker()
         {
-            this.tableCellStyle = new Dictionary<string, Dictionary<string, htslCellStyle>>();
-            this.tableRowStyle = new Dictionary<string, Dictionary<int, htslCellStyle>>();
+            this.tableCellStyle = new Dictionary<string, Dictionary<string, HtslCellStyle>>();
+            this.tableRowStyle = new Dictionary<string, Dictionary<int, HtslCellStyle>>();
+            this.HtmlConverterHelper = new HtmlConverterHelper();
         }
 
         /// <summary>
@@ -30,7 +32,7 @@ namespace htslCore.Worker
         /// <value>
         /// The table row style.
         /// </value>
-        private Dictionary<string, Dictionary<int, htslCellStyle>> tableRowStyle { get; set; }
+        private Dictionary<string, Dictionary<int, HtslCellStyle>> tableRowStyle { get; set; }
 
         /// <summary>
         /// Gets or sets the table cell style.
@@ -38,20 +40,42 @@ namespace htslCore.Worker
         /// <value>
         /// The table cell style.
         /// </value>
-        private Dictionary<string, Dictionary<string, htslCellStyle>> tableCellStyle { get; set; }
-        
+        private Dictionary<string, Dictionary<string, HtslCellStyle>> tableCellStyle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the HTML converter helper.
+        /// </summary>
+        /// <value>
+        /// The HTML converter helper.
+        /// </value>
+        private HtmlConverterHelper HtmlConverterHelper { get; set; }
+
+        /// <summary>
+        /// Determines whether [is HTML valid] [the specified HTML string].
+        /// </summary>
+        /// <param name="htmlStr">The HTML string.</param>
+        /// <returns>
+        ///   <c>true</c> if [is HTML valid] [the specified HTML string]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsHtmlValid(string htmlStr)
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml(htmlStr);
+            return doc.ParseErrors.Count() > 0;
+        }
+
         /// <summary>
         /// Converts the HTML to EXCEL.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Converted document as byte array.</returns>
         public byte[] ConvertHTMLToXL(string htmlStr)
         {
-            var html = new HtmlDocument() { OptionUseIdAttribute = true };
+            //Load html document
+            var htmlDocument = this.HtmlConverterHelper.GetNewHtmlDocument(htmlStr);
             int rowIndex = 1, colIndex = 1;
             MemoryStream MemoryStream = new MemoryStream();
 
-            html.LoadHtml(htmlStr);
-            var tables = html.DocumentNode.Descendants("table").ToList();
+            var tables = htmlDocument.DocumentNode.Descendants("table").ToList();
 
             tables.ForEach(table =>
             {
@@ -73,8 +97,8 @@ namespace htslCore.Worker
                     colIndex = 1;
                     foreach(var cell in cells)
                     {
-                        htslCellStyle style;
-                        var styleExists = cellStyles.TryGetValue(string.Format(htslConstants.RowColPlaceHolder, rowIndex, colIndex), out style);
+                        HtslCellStyle style;
+                        var styleExists = cellStyles.TryGetValue(string.Format(HtslConstants.RowColPlaceHolder, rowIndex, colIndex), out style);
                         document.SetCellValue(rowIndex, colIndex, cell.InnerText);
 
                         if (styleExists)
@@ -108,8 +132,8 @@ namespace htslCore.Worker
 
             var rows = htmlTableNode.Descendants("tr").ToList();
             int rowIndex = 1;
-            var _rowStyles = new Dictionary<int, htslCellStyle>();
-            var _cellStyles = new Dictionary<string, htslCellStyle>();
+            var _rowStyles = new Dictionary<int, HtslCellStyle>();
+            var _cellStyles = new Dictionary<string, HtslCellStyle>();
             rows.ForEach(row =>
             {
                 var rowStyle = row.GetAttributeValue("style", null);
@@ -129,7 +153,7 @@ namespace htslCore.Worker
 
                     if (cellStyle != null)
                     {
-                        _cellStyles.Add(string.Format(htslConstants.RowColPlaceHolder, rowIndex, cellIndex), this.ProcessStyleProperties(cellStyle));
+                        _cellStyles.Add(string.Format(HtslConstants.RowColPlaceHolder, rowIndex, cellIndex), this.ProcessStyleProperties(cellStyle));
                     }
 
                     ++cellIndex;
@@ -146,10 +170,10 @@ namespace htslCore.Worker
         /// Processes the style properties.
         /// </summary>
         /// <param name="styleStr">The style.</param>
-        private htslCellStyle ProcessStyleProperties(string styleStr)
+        private HtslCellStyle ProcessStyleProperties(string styleStr)
         {
             string[] cssProperties = styleStr.Split(';');
-            htslCellStyle slStyle = new htslCellStyle();
+            HtslCellStyle slStyle = new HtslCellStyle();
 
             foreach (var prop in cssProperties)
             {
@@ -158,11 +182,11 @@ namespace htslCore.Worker
                 switch (stylePair[0].Trim())
                 {
                     case "width":
-                        slStyle.Width = Convert.ToDouble(Regex.Replace(stylePair[1], htslConstants.NumberOnlyRegex, ""));
+                        slStyle.Width = Convert.ToDouble(Regex.Replace(stylePair[1], HtslConstants.NumberOnlyRegex, ""));
                         break;
 
                     case "height":
-                        slStyle.Height = Convert.ToDouble(Regex.Replace(stylePair[1], htslConstants.NumberOnlyRegex, ""));
+                        slStyle.Height = Convert.ToDouble(Regex.Replace(stylePair[1], HtslConstants.NumberOnlyRegex, ""));
                         break;
 
                     case "border":
@@ -181,7 +205,7 @@ namespace htslCore.Worker
         /// </summary>
         /// <param name="borderStr">The border string.</param>
         /// <param name="slStyle">The Cell style.</param>
-        private void SetSLBorder(string borderStr, htslCellStyle slStyle)
+        private void SetSLBorder(string borderStr, HtslCellStyle slStyle)
         {
             var borderSplit = borderStr.Split(' ');
             if(borderSplit.Length == 3)
