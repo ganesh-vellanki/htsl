@@ -1,9 +1,9 @@
 Styles we want to process.
-1) Borders.
-2) Background color.
+1) Borders. -- IN PROGRESS
+2) Background color.  -- DONE
 3) Font-weight.
-4) Font-color.
-5) Height of tr (row height of all tds, single cell row height not supported for now).
+4) Font-color. -- IN PROGRESS
+5) Height of tr (row height of all tds, single cell row height not supported for now). -- IN PROGRESS
 6) Width of entire column (delayed).
 7) Font-family.
 8) text-align.

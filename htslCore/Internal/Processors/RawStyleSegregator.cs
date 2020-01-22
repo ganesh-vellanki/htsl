@@ -31,6 +31,14 @@ namespace htslCore.Internal.Processors
         public Dictionary<string, HtslCellStyle> ColStyle { get; set; }
 
         /// <summary>
+        /// Gets or sets the raw style lookup. Volatile property.
+        /// </summary>
+        /// <value>
+        /// The raw style lookup.
+        /// </value>
+        public IDictionary<string, string> RawStyleLookup { get; set; }
+
+        /// <summary>
         /// Gets or sets the style affixer.
         /// </summary>
         /// <value>
@@ -44,6 +52,7 @@ namespace htslCore.Internal.Processors
         public RawStyleSegregator()
         {
             this.StyleAffixer = new StyleAffixer();
+            this.RawStyleLookup = new Dictionary<string, string>();
             this.RowStyle = new Dictionary<int, HtslCellStyle>();
             this.ColStyle = new Dictionary<string, HtslCellStyle>();
         }
@@ -67,7 +76,8 @@ namespace htslCore.Internal.Processors
             for (int i = 0; i < rows.Count; i++)
             {
                 var styleAttribute = rows[i].GetAttributeValue("style", null);
-                if(styleAttribute != null)
+
+                if(!string.IsNullOrEmpty(styleAttribute))
                 {
                     this.RowStyle.Add(i, this.ProcessStyleProperties(styleAttribute));
                     this.ProcessColStyles(htmlNode, i);
@@ -99,44 +109,56 @@ namespace htslCore.Internal.Processors
         /// <returns></returns>
         private HtslCellStyle ProcessStyleProperties(string styleStr)
         {
-            string[] cssProperties = styleStr.Split(';');
             HtslCellStyle cellStyle = new HtslCellStyle();
 
-            var styleLookup = this.ConvertStylesAsDictionary(styleStr);
+            this.GenerateRawStyleLookup(styleStr);
 
             //Process the styles with styleAffixer.
             this.StyleAffixer
-                .BindStyle(new BackgroundColorStyleProcessor(cellStyle), styleLookup.ContainsKey(HtslConstants.CssBackgroundColor) ? styleLookup[HtslConstants.CssBackgroundColor]: null)
-                .BindStyle(new BorderStyleProcessor(cellStyle), styleLookup.ContainsKey(HtslConstants.CssBorder) ? styleLookup[HtslConstants.CssBorder] : null);
+                .BindStyle(new BackgroundColorStyleProcessor(cellStyle), this.GetStyleValueForProperty(HtslConstants.CssBackgroundColor))
+                .BindStyle(new BorderStyleProcessor(cellStyle), this.GetStyleValueForProperty(HtslConstants.CssBorder));
 
             return cellStyle;
         }
 
         /// <summary>
-        /// Converts the styles as dictionary.
+        /// Converts the styles for lookup.
         /// </summary>
         /// <param name="styleString">The style string.</param>
         /// <returns>Dictionary form of styles.</returns>
-        private IDictionary<string, string> ConvertStylesAsDictionary(string styleString)
+        private void GenerateRawStyleLookup(string styleString)
         {
-            IDictionary<string, string> styleLookup = new Dictionary<string, string>();
+            this.RawStyleLookup.Clear();
+
             var kvPairStrings = styleString.Split(';');
 
             for (int i = 0; i < kvPairStrings.Length; i++)
             {
                 var splitKeyValuePair = kvPairStrings[i].Trim().Split(':');
+
                 var key = splitKeyValuePair[0].Trim();
-                if (styleLookup.ContainsKey(key))
+
+                if (this.RawStyleLookup.ContainsKey(key))
                 {
-                    styleLookup[key] = splitKeyValuePair[1].Trim();
+                    this.RawStyleLookup[key] = splitKeyValuePair[1].Trim();
                 }
                 else
                 {
-                    styleLookup.Add(key, splitKeyValuePair[1].Trim());
+                    this.RawStyleLookup.Add(key, splitKeyValuePair[1].Trim());
                 }
             }
+        }
 
-            return styleLookup;
+        /// <summary>
+        /// Gets the style value for property.
+        /// </summary>
+        /// <param name="styleKey">The style key.</param>
+        /// <returns>
+        /// Style Value
+        /// </returns>
+        private string GetStyleValueForProperty(string styleKey)
+        {
+            return this.RawStyleLookup != null && this.RawStyleLookup.ContainsKey(styleKey) ? this.RawStyleLookup[styleKey] : null;
         }
     }
 }

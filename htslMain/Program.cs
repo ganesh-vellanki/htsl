@@ -23,7 +23,7 @@ namespace htslMain
         {
             var runner = new htslCore.Main.HtslConverter();
             //var isValidHtml = runner.AssertHTMLSource("<html><head></html>");
-            var stream = runner.ConvertToExcel(HtmlTemplateStore.sampleTemplate1.Replace("\r\n", ""));
+            var stream = runner.ConvertToExcel(HtmlTemplateStore.SampleTemplate_With_RowStyle.Replace("\r\n", ""));
             var memoryStream = new MemoryStream(stream);
             var fileStream = new FileStream(Directory.GetCurrentDirectory() + "\\sample.xlsx", FileMode.Create, FileAccess.Write);
 

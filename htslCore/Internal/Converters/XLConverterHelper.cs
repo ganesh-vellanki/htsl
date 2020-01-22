@@ -75,10 +75,20 @@ namespace htslCore.Internal.Converters
         public void SetCellStyles(RawStyleSegregator rawStyleSegregator, string worksheetName)
         {
             this.SetCurrentWorkSheet(worksheetName);
+            var rowCellsSnapshot = this.SLDocument.GetCells();
             var workSheet = this.SLDocument.GetWorksheetStatistics();
             for (int row = 0; row < workSheet.EndRowIndex; row++)
             {
-                this.SLDocument.SetRowStyle(row + 1, rawStyleSegregator.RowStyle[row]);
+                // here use smart styling, need a config option to swith this.
+                if(workSheet.EndColumnIndex > 0)
+                {
+                    this.SLDocument.SetCellStyle(row + 1, 1, row + 1, rowCellsSnapshot[row + 1].Count, rawStyleSegregator.RowStyle[row]);
+                }
+                else
+                {
+                    this.SLDocument.SetRowStyle(row + 1, rawStyleSegregator.RowStyle[row]);
+                }
+
                 for (int col = 0; col < workSheet.EndColumnIndex; col++)
                 {
                     //this.SLDocument.SetCellStyle(row + 1, col, rawStyleSegregator.ColStyle[string.Format(HtslConstants.RowColPlaceHolder, row, col)]);
